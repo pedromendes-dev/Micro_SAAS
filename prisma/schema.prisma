@@ -1,0 +1,123 @@
+// Este é seu arquivo de schema do Prisma,
+// saiba mais sobre ele na documentação: https://pris.ly/d/prisma-schema
+
+// Procurando maneiras de acelerar suas consultas ou escalar facilmente com suas funções serverless ou edge?
+// Experimente o Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  name      String?
+  avatar    String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  creatorProfile Creator?
+  donations      Donation[]
+  receivedDonations Donation[] @relation("DonationReceiver")
+
+  @@map("users")
+}
+
+model Creator {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  username    String   @unique
+  displayName String
+  bio         String?
+  avatar      String?
+  banner      String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  donations   Donation[] @relation("CreatorDonations")
+  goals       Goal[]
+  posts       Post[]
+
+  @@map("creators")
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  creatorId   String
+  title       String
+  description String?
+  targetAmount Decimal  @db.Decimal(10, 2)
+  currentAmount Decimal @db.Decimal(10, 2) @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  creator     Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  donations   Donation[] @relation("GoalDonations")
+
+  @@map("goals")
+}
+
+model Donation {
+  id        String   @id @default(cuid())
+  amount    Decimal  @db.Decimal(10, 2)
+  message   String?
+  isAnonymous Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  donorId   String
+  donor     User     @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  
+  receiverId String
+  receiver  User     @relation("DonationReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  
+  creatorId String?
+  creator   Creator? @relation("CreatorDonations", fields: [creatorId], references: [id], onDelete: SetNull)
+  
+  goalId    String?
+  goal      Goal?    @relation("GoalDonations", fields: [goalId], references: [id], onDelete: SetNull)
+
+  @@map("donations")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  creatorId String
+  title     String
+  content   String
+  isPublic  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  creator   Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  @@map("posts")
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  creatorId String
+  date      DateTime
+  views     Int      @default(0)
+  donations Int      @default(0)
+  amount    Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt DateTime @default(now())
+
+  @@unique([creatorId, date])
+  @@map("analytics")
+}
