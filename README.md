@@ -1,4 +1,4 @@
-(public/image.png)
+![Apoia.Dev](public/image.png)
 # 🚀 Apoia-Dev
 
 Uma plataforma moderna para apoiar criadores de conteúdo, construída com Next.js 14, TypeScript e Prisma.
