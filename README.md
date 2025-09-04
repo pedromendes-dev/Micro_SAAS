@@ -1,6 +1,5 @@
-(public/image.png)
+![Apoia.Dev](public/Img.pnj.jpeg)
 # 🚀 Apoia-Dev
-
 Uma plataforma moderna para apoiar criadores de conteúdo, construída com Next.js 14, TypeScript e Prisma.
 
 ## ✨ Funcionalidades
@@ -80,14 +79,14 @@ Acesse [http://localhost:3000](http://localhost:3000) no seu navegador.
 ```
 src/
 ├── app/                    # App Router do Next.js 13+
-│   ├── creator/           # Páginas dos criadores
-│   ├── dashboard/         # Dashboard do usuário
-│   └── globals.css        # Estilos globais
-├── components/            # Componentes reutilizáveis
-│   └── ui/               # Componentes base (shadcn/ui)
-├── lib/                   # Utilitários e configurações
-├── types/                 # Definições de tipos TypeScript
-└── generated/             # Arquivos gerados pelo Prisma
+│   ├── creator/            # Páginas dos criadores
+│   ├── dashboard/          # Dashboard do usuário
+│   └── globals.css         # Estilos globais
+├── components/             # Componentes reutilizáveis
+│   └── ui/                 # Componentes base (shadcn/ui)
+├── lib/                    # Utilitários e configurações
+├── types/                  # Definições de tipos TypeScript
+└── generated/              # Arquivos gerados pelo Prisma
 ```
 
 ## 🔧 Scripts Disponíveis
@@ -137,25 +136,5 @@ npx prisma migrate reset
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📞 Suporte
-
-- 📧 Email: seu-email@exemplo.com
-- 🐛 Issues: [GitHub Issues](https://github.com/seu-usuario/apoia-dev/issues)
-- 💬 Discord: [Link do servidor]
-
-## 🙏 Agradecimentos
-
-- [Next.js](https://nextjs.org/) - Framework React
-- [Prisma](https://www.prisma.io/) - ORM moderno
-- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
-- [shadcn/ui](https://ui.shadcn.com/) - Componentes UI
-- [NextAuth.js](https://next-auth.js.org/) - Autenticação
-
----
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela!
